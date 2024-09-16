@@ -1,0 +1,260 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet"> <!-- Scratchy font -->
+</head>
+<body>
+    <h1>Do You Love Me?</h1>
+    <button class="yes-btn" onclick="handleYes()">Yes</button>
+    <button class="no-btn" id="noButton" onclick="handleNo()">No</button>
+
+    <div id="congratulations">Congratulations, now we're a couple!</div>
+    <div id="confetti"></div>
+    <div id="imageArea"></div> <!-- Image container -->
+<div class="watermark">Rishaancore</div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+<style>body {
+    margin: 0;
+    padding: 0;
+    background-color: #D51D48; /* Palette color */
+    color: white;
+    font-family: 'Gloria Hallelujah', cursive; /* Scratchy font */
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure no overflow */
+}
+
+h1 {
+    font-size: 2.5em;
+    position: absolute;
+    top: 20px; /* Move to top */
+    width: 100%;
+}
+
+button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    position: absolute; /* Position button absolutely */
+    z-index: 2; /* Ensure buttons stay on top of other elements */
+}
+
+.yes-btn {
+    background-color: #F24463; /* Palette color */
+    color: white;
+    width: 150px;
+    top: 30%; /* Adjust this value to bring it higher */
+}
+
+.no-btn {
+    background-color: #F7D3C3; /* Palette color */
+    color: black;
+    width: 150px;
+}
+
+#congratulations {
+    display: none;
+    font-size: 2em; /* Smaller size */
+    text-align: center;
+    margin-top: 21px;
+    color: black; /* Black color */
+    font-family: 'Gloria Hallelujah', cursive; /* Scratchy font */
+}
+
+#imageArea img {
+    max-width: 300px;
+    max-height: 300px;
+    position: absolute;
+    bottom: 20px; /* Position slightly higher */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; /* Ensure image stays behind the buttons */
+    border-radius: 15px; /* Apply small round edges to images */
+}
+
+.watermark {
+    position: absolute;
+    top: -1;
+    right: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    color: black;
+    opacity: 0.6;
+    pointer-events: none; /* Make sure it doesn't interfere with interactions */
+}</style><script>// Image array with updated URL
+const imageUrls = [
+    'https://i.postimg.cc/FztM7nFk/Screenshot-20240907-152123.jpg',
+    'https://i.postimg.cc/rswrtcVK/1000076221.jpg',
+    'https://i.postimg.cc/C5rfGt5J/1000076223.jpg',
+    'https://i.postimg.cc/28JZ3PPS/b3f95e89c1440a5f7652b5662e1c2002.jpg',
+    'https://i.postimg.cc/hjnPtnsd/1725839723405.jpg' // New image URL
+];
+
+// Move No button to a random position and show random image
+function handleNo() {
+    const noButton = document.getElementById('noButton');
+    const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.clientWidth));
+    const randomY = Math.floor(Math.random() * (window.innerHeight - noButton.clientHeight));
+    noButton.style.position = 'absolute';
+    noButton.style.left = randomX + 'px';
+    noButton.style.top = randomY + 'px';
+
+    // Random image display
+    const randomImageIndex = Math.floor(Math.random() * imageUrls.length);
+    const randomImageUrl = imageUrls[randomImageIndex];
+
+    let imgElement = document.querySelector('#imageArea img');
+    if (!imgElement) {
+        imgElement = document.createElement('img');
+        document.getElementById('imageArea').appendChild(imgElement);
+    }
+
+    imgElement.src = randomImageUrl;
+    imgElement.style.borderRadius = '15px'; // Round edges for the "No" images
+    imgElement.style.maxWidth = '400px'; // Larger size
+    imgElement.style.maxHeight = '300px'; // Larger height if needed
+}
+
+// Show "Congratulations" message, confetti, and GIF when Yes button is clicked
+function handleYes() {
+    // Change background and text colors
+    document.body.style.backgroundColor = 'black';
+    document.body.style.color = 'pink';
+
+    document.body.innerHTML = ''; // Clear the screen
+    const congrats = document.createElement('h1');
+    congrats.innerText = "Congratulations, now we're a couple!";
+    congrats.style.fontSize = '2em'; // Smaller size
+    congrats.style.textAlign = 'center';
+    congrats.style.color = 'pink'; // Pink color
+    congrats.style.fontFamily = "'Gloria Hallelujah', cursive"; // Scratchy font
+    congrats.style.position = 'absolute';
+    congrats.style.top = '30%'; // Adjusted position
+    congrats.style.left = '50%';
+    congrats.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(congrats);
+
+    // Add GIF element
+    const gif = document.createElement('img');
+    gif.src = 'https://i.postimg.cc/Bbv9H192/cat-dance-dancing-cat.gif'; // Direct URL to GIF
+    gif.alt = 'Celebration GIF';
+    gif.style.display = 'block';
+    gif.style.margin = '20px auto'; // Center the GIF
+    gif.style.maxWidth = '80%'; // Adjust width as needed
+    gif.style.maxHeight = '300px'; // Decrease height
+    gif.style.position = 'absolute';
+    gif.style.top = 'calc(30% + 120px)'; // Further adjusted position below the text
+    gif.style.left = '50%';
+    gif.style.transform = 'translateX(-50%)'; // Center the GIF horizontally
+    gif.style.borderRadius = '15px'; // Rounded edges for the GIF
+    document.body.appendChild(gif);
+
+    // Trigger confetti explosion immediately and then every 2 seconds
+    createConfettiExplosion();
+    startConfettiInterval();
+}
+
+// Start confetti explosion at regular intervals
+function startConfettiInterval() {
+    // Clear any existing confetti intervals
+    if (window.confettiInterval) {
+        clearInterval(window.confettiInterval);
+    }
+
+    // Set up a new interval to create confetti every 2 seconds
+    window.confettiInterval = setInterval(createConfettiExplosion, 2000);
+}
+
+// Create the confetti burst effect
+function createConfettiExplosion() {
+    // Remove previous confetti particles
+    const existingConfetti = document.querySelector('#confetti');
+    if (existingConfetti) {
+        existingConfetti.remove();
+    }
+
+    const confettiDiv = document.createElement('div');
+    confettiDiv.id = 'confetti';
+    confettiDiv.style.position = 'fixed';
+    confettiDiv.style.top = '0';
+    confettiDiv.style.left = '0';
+    confettiDiv.style.width = '100%';
+    confettiDiv.style.height = '100%';
+    confettiDiv.style.pointerEvents = 'none';
+    confettiDiv.style.overflow = 'hidden';
+
+    // Create particles for left side
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        const size = Math.random() * 10 + 10; // Random size
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.backgroundColor = ['#FF5733', '#FFC300', '#DAF7A6', '#33B5E5', '#FF8C00'][Math.floor(Math.random() * 5)];
+        particle.style.borderRadius = `${Math.random() * 50}%`; // Randomly make shapes round or square
+        particle.style.opacity = '0.8';
+
+        // Start confetti from the left side
+        particle.style.left = `${Math.random() * window.innerWidth / 2}px`;
+        particle.style.top = `${Math.random() * window.innerHeight}px`;
+
+        // Animate particles to explode towards the center
+        particle.style.animation = `explode ${Math.random() * 3 + 1}s cubic-bezier(0.25, 1, 0.5, 1) forwards`;
+
+        confettiDiv.appendChild(particle);
+    }
+
+    // Create particles for right side
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        const size = Math.random() * 10 + 10; // Random size
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.backgroundColor = ['#FF5733', '#FFC300', '#DAF7A6', '#33B5E5', '#FF8C00'][Math.floor(Math.random() * 5)];
+        particle.style.borderRadius = `${Math.random() * 50}%`; // Randomly make shapes round or square
+        particle.style.opacity = '0.8';
+
+        // Start confetti from the right side
+        particle.style.left = `${window.innerWidth / 2 + Math.random() * window.innerWidth / 2}px`;
+        particle.style.top = `${Math.random() * window.innerHeight}px`;
+
+        // Animate particles to explode towards the center
+        particle.style.animation = `explode ${Math.random() * 3 + 1}s cubic-bezier(0.25, 1, 0.5, 1) forwards`;
+
+        confettiDiv.appendChild(particle);
+    }
+
+    document.body.appendChild(confettiDiv);
+}
+
+// Animation keyframes
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = `
+@keyframes explode {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    100% { 
+        transform: translateY(${Math.random() * -400 - 200}px) translateX(${Math.random() * 400 - 200}px); 
+        opacity: 0; 
+    }
+}
+`;
+document.head.appendChild(styleSheet);</script>
